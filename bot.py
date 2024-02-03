@@ -67,7 +67,7 @@ def control_admin(do,who,user):
         return '⚠️不在管理员列表中, 无法添加或移除新管理员🚨'
 
 def analysis(word,who):
-    w=word.split(' ')
+    w=word.replace('：',':').split(' ')
     try:
         if is_good_time(w[0]):
             if w[1]=='do':
@@ -177,8 +177,9 @@ def clean(message):
 def send_ai(message):
     bot.reply_to(message,json.loads(requests.get('http://api.qingyunke.com/api.php?key=free&appid=0&msg=%s'%message.text.replace('/ai ','')).text)['content'])
 
-@bot.message_handler(func=lambda message: True)
-def echo_reply(message):
-    bot.reply_to(message,message.text)
+# 复读模式
+#@bot.message_handler(func=lambda message: True)
+#def echo_reply(message):
+#    bot.reply_to(message,message.text)
 
 bot.infinity_polling()
